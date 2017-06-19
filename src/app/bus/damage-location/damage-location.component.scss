@@ -1,0 +1,29 @@
+img {
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+  -webkit-user-drag: none;
+  user-drag: none;
+}
+
+.damage-container__marker {
+  pointer-events: none;
+  position: absolute;
+  border-radius: 5px;
+  box-shadow: 0 0 5px 5px #ff8c00;
+  left: 0;
+  top: 0;
+  background: repeating-linear-gradient(
+                  135deg,
+                  rgba(0,0,0,.2),
+                  rgba(0,0,0,.2) 10px,
+                  rgba(255, 140, 0, 0.2) 10px,
+                  rgba(255, 140, 0, 0.2) 20px
+  );
+}
+
+.damage-container {
+  position: relative;
+  overflow: hidden;
+}

@@ -1,0 +1,13 @@
+<header>
+    <app-navigation></app-navigation>
+</header>
+<div class="container-fluid py-3">
+    <div class="row">
+        <div class="col-3">
+            <app-bus-navigation [busses]="busses"></app-bus-navigation>
+        </div>
+        <div class="col-9">
+            <router-outlet></router-outlet>
+        </div>
+    </div>
+</div>

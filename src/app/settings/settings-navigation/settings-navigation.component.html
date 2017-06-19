@@ -1,0 +1,5 @@
+<div class="list-group">
+    <a class="list-group-item list-group-item-action" [ngClass]="{'active': component === 'profile'}" [routerLink]="['/settings', 'profile']"><span class="mr-auto">Profiel</span></a>
+    <a class="list-group-item list-group-item-action" [ngClass]="{'active': component === 'account'}" [routerLink]="['/settings', 'account']"><span class="mr-auto">Account</span></a>
+    <a class="list-group-item list-group-item-action" [ngClass]="{'active': component === 'general'}" [routerLink]="['/settings', 'general']"><span class="mr-auto">Algemeen</span></a>
+</div>

@@ -1,0 +1,101 @@
+    <h5 class="card-header">Account</h5>
+    <div class="card-block">
+        <h4 class="card-title">Accountgegevens wijzigen</h4>
+        <form [formGroup]="updateEmailForm" (ngSubmit)="tryUpdateEmail(updateEmailForm)">
+            <ngb-alert class="text-center" type="danger" *ngIf="updateEmailMessage" (close)="updateEmailMessage = null">
+                {{updateEmailMessage}}
+            </ngb-alert>
+            <ngb-alert class="text-center" type="success" *ngIf="updateEmailSuccessMessage" (close)="updateEmailSuccessMessage = null">
+                {{updateEmailSuccessMessage}}
+            </ngb-alert>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group" [ngClass]="{'has-warning': !updateEmailForm.controls['password'].valid && updateEmailForm.controls['password'].touched}">
+                        <label for="passwordInput">Wachtwoord</label>
+                        <input type="password" class="form-control form-control-warning" id="passwordInput" name="password" formControlName="password" placeholder="Wachtwoord">
+                        <div class="form-control-feedback" *ngIf="updateEmailForm.controls['password'].hasError('required') && updateEmailForm.controls['password'].touched">
+                            Wachtwoord is verplicht.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group" [ngClass]="{'has-warning': !updateEmailForm.controls['email'].valid && updateEmailForm.controls['email'].touched}">
+                        <label for="emailInput">Email adres</label>
+                        <input type="email" class="form-control form-control-warning" id="emailInput" name="email" formControlName="email" placeholder="Email adres" [(ngModel)]="email">
+                        <div class="form-control-feedback" *ngIf="updateEmailForm.controls['email'].hasError('required') && updateEmailForm.controls['email'].touched">
+                            Email adres is verplicht.
+                        </div>
+                        <div class="form-control-feedback" *ngIf="updateEmailForm.controls['email'].hasError('incorrectMailFormat') && updateEmailForm.controls['email'].touched">
+                            Dit is geen geldig email adres.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <button type="submit" class="btn btn-primary btn-block" [disabled]="!updateEmailForm.valid || isEmailLoading">
+                        <i class="fa fa-refresh fa-spin" aria-hidden="true" [hidden]="!isEmailLoading"></i> Wijzigen
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>
+    <div class="card-block bt">
+        <h4 class="card-title">Wachtwoord wijzigen</h4>
+        <form [formGroup]="updatePasswordForm" (ngSubmit)="tryUpdatePassword(updatePasswordForm)">
+            <ngb-alert class="text-center" type="danger" *ngIf="updatePasswordMessage" (close)="updatePasswordMessage = null">
+                {{updatePasswordMessage}}
+            </ngb-alert>
+            <ngb-alert class="text-center" type="success" *ngIf="updatePasswordSuccessMessage" (close)="updatePasswordSuccessMessage = null">
+                {{updatePasswordSuccessMessage}}
+            </ngb-alert>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group" [ngClass]="{'has-warning': !updatePasswordForm.controls['password'].valid && updatePasswordForm.controls['password'].touched}">
+                        <label for="resetPasswordInputOld">Oud wachtwoord</label>
+                        <input type="password" class="form-control form-control-warning" id="resetPasswordInputOld" name="password" formControlName="password" placeholder="Oud wachtwoord">
+                        <div class="form-control-feedback" *ngIf="updatePasswordForm.controls['password'].hasError('required') && updatePasswordForm.controls['password'].touched">
+                            Oud wachtwoord is verplicht.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group" [ngClass]="{'has-warning': !updatePasswordForm.controls['newPassword'].valid && updatePasswordForm.controls['newPassword'].touched}">
+                        <label for="resetPasswordInputNew">Nieuw wachtwoord</label>
+                        <input type="password" class="form-control form-control-warning" id="resetPasswordInputNew" name="newPassword" formControlName="newPassword" placeholder="Nieuw wachtwoord">
+                        <div class="form-control-feedback" *ngIf="updatePasswordForm.controls['newPassword'].hasError('required') && updatePasswordForm.controls['newPassword'].touched">
+                            Nieuw wachtwoord is verplicht.
+                        </div>
+                        <div class="form-control-feedback" *ngIf="updatePasswordForm.controls['newPassword'].hasError('minlength') && updatePasswordForm.controls['newPassword'].touched">
+                            Nieuw wachtwoord moet 6 tekens lang zijn.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <div class="form-group" [ngClass]="{'has-warning':(!updatePasswordForm.controls['newPasswordRepeat'].valid || updatePasswordForm.hasError('mismatchedPasswords')) && updatePasswordForm.controls['newPasswordRepeat'].touched}">
+                        <label for="resetPasswordInputNewRepeat">Wachtwoord herhalen</label>
+                        <input type="password" class="form-control form-control-warning" id="resetPasswordInputNewRepeat" name="newPasswordRepeat" formControlName="newPasswordRepeat" placeholder="Wachtwoord herhalen">
+                        <div class="form-control-feedback" *ngIf="updatePasswordForm.controls['newPasswordRepeat'].hasError('required') && updatePasswordForm.controls['newPasswordRepeat'].touched">
+                            Wachtwoord herhalen is verplicht.
+                        </div>
+                        <div class="form-control-feedback" *ngIf="updatePasswordForm.hasError('mismatchedPasswords') && updatePasswordForm.controls['newPasswordRepeat'].touched">
+                            Wachtwoorden moeten gelijk zin.
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-6">
+                    <button type="submit" class="btn btn-primary btn-block" [disabled]="!updatePasswordForm.valid || isPasswordLoading">
+                        <i class="fa fa-refresh fa-spin" aria-hidden="true" [hidden]="!isPasswordLoading"></i> Wijzigen
+                    </button>
+                </div>
+            </div>
+        </form>
+    </div>

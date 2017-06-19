@@ -1,0 +1,26 @@
+<header>
+    <app-navigation></app-navigation>
+</header>
+<div class="container py-3">
+    <!--<div class="alert alert-warning" role="alert">-->
+        <!--<i class="fa fa-exclamation-triangle" aria-hidden="true"></i><strong> Gegevens zijn verouderd!</strong> De server meldt dat nieuwe items gesynchroniseerd moeten worden.-->
+    <!--</div>-->
+    <div class="alert alert-success" role="alert" *ngIf="hasSynced">
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close" (click)="hasSynced = false">
+            <span aria-hidden="true">&times;</span>
+        </button>
+        Alle gegevens werden gesynchroniseerd.
+    </div>
+    <button (click)="syncOnline()" class="btn btn-primary btn-block btn-lg" [disabled]="isSyncing">
+        <i class="fa fa-refresh fa-spin" aria-hidden="true" [hidden]="!isSyncing"></i> {{syncButtonMessage}}
+    </button>
+    <div class="list-group mt-3" *ngIf="reports">
+        <a [routerLink]="['/bus', report.busId, 'sync', report.id]" class="list-group-item list-group-item-action flex-column align-items-start" *ngFor="let report of reports" [ngClass]="{'list-group-item-danger': report.priority === priority.Critical, 'list-group-item-warning': report.priority === priority.High}">
+            <div class="d-flex w-100 justify-content-between">
+                <h5 class="mb-1">{{report.busNr}} - {{report.shortDescription}} - {{moment(report.date).format("DD/MM/YYYY")}}</h5>
+            </div>
+            <p class="mb-1">{{report.description}}</p>
+            <small>{{report.observerName}}</small>
+        </a>
+    </div>
+</div>

@@ -1,0 +1,79 @@
+<div class="card" *ngIf="selectedBus && series">
+    <h5 class="card-header">{{selectedBus.busNr}} - {{series.type}}</h5>
+    <img src="../../../assets/tempimg/zijaanzicht.png" class="img-fluid">
+    <ul class="list-group list-group-flush">
+        <li class="list-group-item">
+            <div class="row w-100">
+                <div class="col-6">
+                    <dl class="row mb-0">
+                        <dt class="col-sm-5">Busnummer</dt>
+                        <dd class="col-sm-7">{{selectedBus.busNr}}</dd>
+
+                        <dt class="col-sm-5">Naam</dt>
+                        <dd class="col-sm-7">{{nameAliases[series.name]}}</dd>
+
+                        <dt class="col-sm-5">Merk</dt>
+                        <dd class="col-sm-7">{{series.brand}}</dd>
+                    </dl>
+                </div>
+                <div class="col-6">
+                    <dl class="row mb-0">
+                        <dt class="col-sm-5">Type</dt>
+                        <dd class="col-sm-7">{{series.type}}</dd>
+
+                        <dt class="col-sm-5">Aankoopdatum</dt>
+                        <dd class="col-sm-7">{{serviceDayFormatted}}</dd>
+                    </dl>
+                </div>
+            </div>
+        </li>
+        <li class="list-group-item">
+            <a [routerLink]="['/bus', selectedBus.id, 'newreport']" class="btn btn-danger btn-lg btn-block">Schaderapport
+                opmaken</a>
+        </li>
+    </ul>
+    <div class="card-block" *ngIf="reports !== undefined && reports.length > 0">
+        <h4 class="card-title mb-4">Ongesyncte schaderapporten</h4>
+        <div class="list-group" *ngIf="reports">
+            <a [routerLink]="['/bus', selectedBus.id, 'sync', report.id]"
+               class="list-group-item list-group-item-action flex-column align-items-start"
+               [ngClass]="{'list-group-item-danger': report.priority === priority.Critical, 'list-group-item-warning': report.priority === priority.High}"
+               *ngFor="let report of reports">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{report.shortDescription}} - {{moment(report.date).format("DD/MM/YYYY")}}</h5>
+                    <div>
+                        <span class="badge badge-pill badge-default"><i class="fa fa-refresh fa-spin"
+                                                                        aria-hidden="true"></i></span>
+                    </div>
+                </div>
+                <p class="mb-1">{{report.description}}</p>
+                <small>{{report.observerName}}</small>
+            </a>
+        </div>
+    </div>
+    <div class="card-block pt-0" *ngIf="openReports !== undefined && openReports.length > 0">
+        <h4 class="card-title mb-4">Open schaderapporten</h4>
+        <div class="list-group" *ngIf="openReports">
+            <a [routerLink]="['/bus', selectedBus.id, 'open', report.id]"
+               class="list-group-item list-group-item-action flex-column align-items-start"
+               [ngClass]="{'list-group-item-danger': report.priority === priority.Critical, 'list-group-item-warning': report.priority === priority.High}"
+               *ngFor="let report of openReports">
+                <div class="d-flex w-100 justify-content-between">
+                    <h5 class="mb-1">{{report.shortDescription}} - {{moment(report.date).format("DD/MM/YYYY")}}</h5>
+                    <div>
+                        <span class="badge badge-pill mr-1"
+                              [ngClass]="{'badge-success': report.techStatus === techStatus.Progress, 'badge-warning': report.techStatus === techStatus.Seen,  'badge-danger': report.techStatus === techStatus.NotSeen}"
+                              *ngIf="report.techStatus !== techStatus.Finished"><i class="fa fa-wrench"
+                                                                                aria-hidden="true"></i></span>
+                        <span class="badge badge-pill"
+                              [ngClass]="{'badge-warning': report.mgmtStatus === mgmtStatus.Research, 'badge-danger': report.mgmtStatus === mgmtStatus.NotSeen}"
+                              *ngIf="report.mgmtStatus !== mgmtStatus.Finished"><i class="fa fa-eye-slash"
+                                                                                aria-hidden="true"></i></span>
+                    </div>
+                </div>
+                <p class="mb-1">{{report.description}}</p>
+                <small>{{report.observerName}}</small>
+            </a>
+        </div>
+    </div>
+</div>

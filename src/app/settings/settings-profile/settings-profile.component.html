@@ -1,0 +1,59 @@
+<h5 class="card-header">Profiel</h5>
+<div class="card-block">
+    <h4 class="card-title">Profielgegevens wijzigen</h4>
+    <form [formGroup]="updateProfileForm" (ngSubmit)="tryUpdateProfile(updateProfileForm)">
+        <ngb-alert class="text-center" type="info" *ngIf="updateProfileMessage" (close)="updateProfileMessage = null">
+            {{updateProfileMessage}}
+        </ngb-alert>
+        <ngb-alert class="text-center" type="success" *ngIf="updateProfileSuccessMessage" (close)="updateProfileSuccessMessage = null">
+            {{updateProfileSuccessMessage}}
+        </ngb-alert>
+        <div class="row">
+            <div class="col-6">
+                <div class="form-group" [ngClass]="{'has-warning': !updateProfileForm.controls['name'].valid && updateProfileForm.controls['name'].touched}">
+                    <label for="nameInput">Naam</label>
+                    <input type="text" class="form-control form-control-warning" id="nameInput" placeholder="Naam" name="name" formControlName="name" maxlength="35">
+                    <div class="form-control-feedback" *ngIf="updateProfileForm.controls['name'].hasError('required') && updateProfileForm.controls['name'].touched">
+                        Naam is verplicht.
+                    </div>
+                    <div class="form-control-feedback" *ngIf="updateProfileForm.controls['name'].hasError('maxlength') && updateProfileForm.controls['name'].touched">
+                        Naam mag maximum 35 karakters lang zijn.
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <button type="submit" class="btn btn-primary btn-block" [disabled]="!updateProfileForm.valid || isProfileLoading">
+                    <i class="fa fa-refresh fa-spin" aria-hidden="true" [hidden]="!isProfileLoading"></i> Wijzigen
+                </button>
+            </div>
+        </div>
+    </form>
+</div>
+<div class="card-block bt">
+    <h4 class="card-title">Regio's wijzigen</h4>
+    <form [formGroup]="updateRegionsForm" (ngSubmit)="tryUpdateRegions()">
+        <ngb-alert class="text-center" type="info" *ngIf="updateRegionsMessage" (close)="updateRegionsMessage = null">
+            {{updateRegionsMessage}}
+        </ngb-alert>
+        <div class="row" *ngFor="let region of updateRegionsForm.controls['regions'].controls">
+            <div class="col-6">
+                <div class="form-group">
+                    <label class="custom-control custom-checkbox">
+                        <input type="checkbox" class="custom-control-input" name="regions" value="{{region.value.value.value}}" (change)="changeRegion($event)" [checked]="region.value.value.checked">
+                        <span class="custom-control-indicator"></span>
+                        <span class="custom-control-description">{{region.value.value.name}}</span>
+                    </label>
+                </div>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-6">
+                <button type="submit" class="btn btn-primary btn-block" [disabled]="isRegionsLoading">
+                    <i class="fa fa-refresh fa-spin" aria-hidden="true" [hidden]="!isRegionsLoading"></i> Wijzigen
+                </button>
+            </div>
+        </div>
+    </form>
+</div>

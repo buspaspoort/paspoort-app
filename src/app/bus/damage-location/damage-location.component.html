@@ -1,0 +1,4 @@
+<div class="damage-container">
+    <img src="../../../assets/tempimg/zijaanzicht.png" class="img-fluid" (mousedown)="start($event)" (touchstart)="startTouch($event)" (mouseup)="stop($event)" (touchend)="stopTouch($event)" (mousemove)="move($event)" (touchcancel)="isMoving = false" (touchmove)="moveTouch($event)">
+    <div class="damage-container__marker" *ngIf="isVisible" [style.width.%]="markerWidth" [style.height.%]="markerHeight" [style.left.%]="xPercentStart * 100" [style.top.%]="yPercentStart * 100"></div>
+</div>

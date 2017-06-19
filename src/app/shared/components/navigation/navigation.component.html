@@ -1,0 +1,27 @@
+<nav class="navbar navbar-toggleable-md navbar-light bg-faded">
+    <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarNav"
+            aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <h1 class="navbar-brand mb-0">Buspaspoort</h1>
+    <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav w-100">
+            <li class="nav-item" [ngClass]="{'active': component === 'bus'}">
+                <a class="nav-link" [routerLink]="['/bus']">Bussen</a>
+            </li>
+            <li class="nav-item" [ngClass]="{'active': component === 'sync'}">
+                <a class="nav-link" [routerLink]="['/sync']">Synchroniseren</a>
+            </li>
+            <li class="nav-item dropdown ml-auto lg-ml-0" [ngClass]="{'active': component === 'settings' || component === 'profile' || component === 'account'}">
+                <a class="nav-link dropdown-toggle pr-0" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown"
+                   aria-haspopup="true" aria-expanded="false">
+                    {{name === null ? email : name}}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a class="dropdown-item" [routerLink]="['/settings', 'profile']" [ngClass]="{'active': component === 'settings' || component === 'profile' || component === 'account'}">Instellingen</a>
+                    <a class="dropdown-item" (click)="signOut()">Uitloggen</a>
+                </div>
+            </li>
+        </ul>
+    </div>
+</nav>

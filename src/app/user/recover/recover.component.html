@@ -1,0 +1,23 @@
+<h5 class="card-header">
+    Wachtwoord vergeten
+</h5>
+<div class="card-block">
+    <form [formGroup]="signInForm" (ngSubmit)="onSubmit(signInForm)">
+        <ngb-alert class="text-center" type="danger" *ngIf="signInErrorMessage" (close)="signInErrorMessage = null">
+            {{signInErrorMessage}}
+        </ngb-alert>
+        <div class="form-group" [ngClass]="{'has-warning':!signInForm.controls['email'].valid && signInForm.controls['email'].touched}">
+            <label for="recoverInputEmail">Email adres</label>
+            <input type="email" class="form-control form-control-warning" id="recoverInputEmail" placeholder="Email adres" [formControl]="signInForm.controls['email']">
+            <div class="form-control-feedback" *ngIf="signInForm.controls['email'].hasError('required') && signInForm.controls['email'].touched">
+                Email adres is verplicht.
+            </div>
+            <div class="form-control-feedback" *ngIf="signInForm.controls['email'].hasError('incorrectMailFormat') && signInForm.controls['email'].touched">
+                Dit is geen geldig email adres.
+            </div>
+        </div>
+        <button type="submit" class="btn btn-primary btn-block" [disabled]="!signInForm.valid || isLoading">
+            <i class="fa fa-refresh fa-spin" aria-hidden="true" [hidden]="!isLoading"></i> Zend wachtwoord reset email
+        </button>
+    </form>
+</div>
